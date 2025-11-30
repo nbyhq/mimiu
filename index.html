@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Untuk Olamimiu Cantiquw</title>
+
+    <!-- Google Font aesthetic -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #ffd6e7, #ffeef5);
+            font-family: 'Quicksand', sans-serif;
+            text-align: center;
+            padding-top: 120px;
+            color: #ff5b9f;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 26px;
+            margin-bottom: 40px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        button {
+            background-color: white;
+            border: none;
+            padding: 15px 45px;
+            margin: 10px;
+            border-radius: 30px;
+            font-size: 22px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(255, 100, 150, 0.2);
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 16px rgba(255, 100, 150, 0.3);
+        }
+
+        /* animasi tombol "masih" kabur lucu */
+        #btn-masih {
+            position: relative;
+        }
+
+        /* efek glitter aesthetic */
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: sparkle 3s infinite ease-in-out;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.8); opacity: 0.3; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>olamimiu cantiquw</h1>
+    <h2>kamu masih marah sama aku? 🥺💗</h2>
+
+    <button id="btn-engga" onclick="window.location.href='halaman2.html'">enggak 💞</button>
+    <button id="btn-masih">masih 😠</button>
+
+    <!-- sparkles random -->
+    <script>
+        // tombol "masih" kabur
+        const btnMasih = document.getElementById("btn-masih");
+
+        btnMasih.addEventListener("mouseover", function () {
+            const randomX = Math.floor(Math.random() * 400) - 200;
+            const randomY = Math.floor(Math.random() * 400) - 200;
+
+            btnMasih.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        });
+
+        // sparkles aesthetic
+        for (let i = 0; i < 30; i++) {
+            let s = document.createElement("div");
+            s.classList.add("sparkle");
+            s.style.left = Math.random() * 100 + "%";
+            s.style.top = Math.random() * 100 + "%";
+            s.style.animationDelay = (Math.random() * 3) + "s";
+            document.body.appendChild(s);
+        }
+    </script>
+
+</body>
+</html>
