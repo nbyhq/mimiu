@@ -10,11 +10,11 @@
         body {
             background: linear-gradient(135deg, #ffe9f2, #ffd3e6);
             text-align: center;
-            padding-top: 50px;
+            padding-top: 70px;
             font-family: 'Quicksand', sans-serif;
             color: #ff4d9d;
-            overflow: hidden;
             height: 100vh;
+            overflow: hidden;
         }
 
         h1 {
@@ -28,34 +28,35 @@
             margin-bottom: 40px;
         }
 
-        .btn-container {
+        .btn-box {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
             position: relative;
         }
 
         button {
-            padding: 14px 35px;
+            padding: 14px 36px;
             font-size: 20px;
             border-radius: 30px;
             border: none;
             cursor: pointer;
             font-weight: bold;
             font-family: 'Quicksand', sans-serif;
-            transition: 0.2s;
+            transition: 0.2s ease;
         }
 
         #btnEnggak {
             background: #ff8ec9;
             color: white;
-            box-shadow: 0 4px 10px rgba(255,100,150,0.4);
+            z-index: 1;
         }
 
         #btnMasih {
-            position: absolute;
             background: #ffd1e8;
             color: #ff2d79;
-            box-shadow: 0 4px 10px rgba(255,150,200,0.4);
-            left: 50%;
-            transform: translateX(-50%);
+            position: relative;
+            z-index: 2;
         }
     </style>
 </head>
@@ -64,53 +65,55 @@
     <h1>Olamimiu Cantiquw 💗</h1>
     <p>Kamu masih marah sama aku?</p>
 
-    <div class="btn-container">
+    <div class="btn-box" id="btnBox">
         <button id="btnEnggak" onclick="location.href='halaman2.html'">Enggak 💗</button>
         <button id="btnMasih">Masih 😡</button>
     </div>
 
     <script>
         const btnMasih = document.getElementById("btnMasih");
-        let speed = 900;  // makin kecil = makin cepat teleport
+        const btnBox = document.getElementById("btnBox");
 
-        // Fungsi tombol pindah tempat
-        function moveButton() {
+        let originalX = 0;
+        let originalY = 0;
+
+        // Catat posisi awal tombol
+        setTimeout(() => {
+            const rect = btnMasih.getBoundingClientRect();
+            originalX = rect.left;
+            originalY = rect.top;
+        }, 200);
+
+        // Fungsi buat tombol kabur
+        function runAway() {
             const screenWidth = window.innerWidth;
             const screenHeight = window.innerHeight;
 
-            const maxX = screenWidth - btnMasih.offsetWidth - 40;
+            const maxX = screenWidth - btnMasih.offsetWidth - 30;
             const maxY = screenHeight - btnMasih.offsetHeight - 120;
 
-            const randomX = Math.random() * maxX;
-            const randomY = Math.random() * maxY;
+            let randomX = Math.random() * maxX;
+            let randomY = Math.random() * maxY;
 
-            btnMasih.style.transform =
-                `translate(${randomX}px, ${randomY}px) rotate(${Math.random()*30 -15}deg)`;
+            btnMasih.style.position = "fixed";
+            btnMasih.style.left = randomX + "px";
+            btnMasih.style.top = randomY + "px";
+            btnMasih.style.transform = `rotate(${Math.random()*30 - 15}deg)`;
         }
 
-        // Tombol teleport otomatis
+        // Setiap 2 detik tombol kembali seperti semula (sejajar lagi)
         setInterval(() => {
-            moveButton();
-        }, speed);
+            btnMasih.style.position = "relative";
+            btnMasih.style.left = "0";
+            btnMasih.style.top = "0";
+            btnMasih.style.transform = "none";
+        }, 2000);
 
-        // Biar makin ngeselin, makin disentuh makin cepat
-        function makeFaster() {
-            if (speed > 150) {
-                speed -= 70;
-            }
-        }
+        // Event ketika user mencoba klik (desktop)
+        btnMasih.addEventListener("mouseover", runAway);
 
-        // desktop (hover)
-        btnMasih.addEventListener("mouseover", () => {
-            moveButton();
-            makeFaster();
-        });
-
-        // mobile (sentuh)
-        btnMasih.addEventListener("touchstart", () => {
-            moveButton();
-            makeFaster();
-        });
+        // Event ketika user sentuh (mobile)
+        btnMasih.addEventListener("touchstart", runAway);
     </script>
 
 </body>
