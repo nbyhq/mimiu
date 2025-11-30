@@ -99,25 +99,29 @@
     </audio>
 
     <script>
-        // Unmute otomatis ketika halaman selesai dimuat
-        window.addEventListener("load", () => {
-            const musik = document.getElementById("musik");
-            musik.muted = false;
-            musik.play().catch(err => console.log("Autoplay diblokir:", err));
-        });
+    const btnMasih = document.getElementById("btnMasih");
 
-        // floating hearts
-        setInterval(() => {
-            const heart = document.createElement("div");
-            heart.classList.add("heart");
-            heart.innerHTML = "💖";
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.animationDuration = (3 + Math.random() * 2) + "s";
-            document.body.appendChild(heart);
+    // Fungsi untuk membuat tombol pindah tempat
+    function moveButton() {
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
 
-            setTimeout(() => heart.remove(), 5000);
-        }, 450);
-    </script>
+        // Batas ukuran aman supaya tombol tidak keluar layar
+        const maxX = screenWidth - btnMasih.offsetWidth - 20;
+        const maxY = screenHeight - btnMasih.offsetHeight - 20;
+
+        const randomX = Math.random() * maxX;
+        const randomY = Math.random() * maxY;
+
+        btnMasih.style.transform = `translate(${randomX}px, ${randomY}px)`;
+    }
+
+    // Trigger ketika tombol disentuh (mobile) atau di-hover/diklik (desktop)
+    btnMasih.addEventListener("mouseover", moveButton);  // desktop
+    btnMasih.addEventListener("touchstart", moveButton); // mobile
+</script>
+
 
 </body>
 </html>
+
