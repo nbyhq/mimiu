@@ -2,107 +2,115 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Untuk Olamimiu Cantiquw</title>
+    <title>Olamimiu Cantiquw 💗</title>
 
-    <!-- Google Font aesthetic -->
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
 
     <style>
         body {
-            background: linear-gradient(135deg, #ffd6e7, #ffeef5);
-            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #ffe9f2, #ffd3e6);
             text-align: center;
-            padding-top: 120px;
-            color: #ff5b9f;
+            padding-top: 50px;
+            font-family: 'Quicksand', sans-serif;
+            color: #ff4d9d;
             overflow: hidden;
+            height: 100vh;
         }
 
         h1 {
             font-family: 'Pacifico', cursive;
-            font-size: 60px;
+            font-size: 45px;
             margin-bottom: 10px;
         }
 
-        h2 {
-            font-size: 26px;
-            margin-bottom: 40px;
-            animation: fadeIn 1.5s ease;
-        }
-
-        button {
-            background-color: white;
-            border: none;
-            padding: 15px 45px;
-            margin: 10px;
-            border-radius: 30px;
+        p {
             font-size: 22px;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(255, 100, 150, 0.2);
-            transition: 0.3s;
+            margin-bottom: 40px;
         }
 
-        button:hover {
-            transform: scale(1.08);
-            box-shadow: 0 6px 16px rgba(255, 100, 150, 0.3);
-        }
-
-        /* animasi tombol "masih" kabur lucu */
-        #btn-masih {
+        .btn-container {
             position: relative;
         }
 
-        /* efek glitter aesthetic */
-        .sparkle {
+        button {
+            padding: 14px 35px;
+            font-size: 20px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'Quicksand', sans-serif;
+            transition: 0.2s;
+        }
+
+        #btnEnggak {
+            background: #ff8ec9;
+            color: white;
+            box-shadow: 0 4px 10px rgba(255,100,150,0.4);
+        }
+
+        #btnMasih {
             position: absolute;
-            width: 6px;
-            height: 6px;
-            background: white;
-            border-radius: 50%;
-            opacity: 0.7;
-            animation: sparkle 3s infinite ease-in-out;
-        }
-
-        @keyframes sparkle {
-            0%, 100% { transform: scale(1); opacity: 0.7; }
-            50% { transform: scale(1.8); opacity: 0.3; }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            background: #ffd1e8;
+            color: #ff2d79;
+            box-shadow: 0 4px 10px rgba(255,150,200,0.4);
+            left: 50%;
+            transform: translateX(-50%);
         }
     </style>
 </head>
 <body>
 
-    <h1>olamimiu cantiquw</h1>
-    <h2>kamu masih marah sama aku? 🥺💗</h2>
+    <h1>Olamimiu Cantiquw 💗</h1>
+    <p>Kamu masih marah sama aku?</p>
 
-    <button id="btn-engga" onclick="window.location.href='halaman2.html'">enggak 💞</button>
-    <button id="btn-masih">masih 😠</button>
+    <div class="btn-container">
+        <button id="btnEnggak" onclick="location.href='halaman2.html'">Enggak 💗</button>
+        <button id="btnMasih">Masih 😡</button>
+    </div>
 
-    <!-- sparkles random -->
     <script>
-        // tombol "masih" kabur
-        const btnMasih = document.getElementById("btn-masih");
+        const btnMasih = document.getElementById("btnMasih");
+        let speed = 900;  // makin kecil = makin cepat teleport
 
-        btnMasih.addEventListener("mouseover", function () {
-            const randomX = Math.floor(Math.random() * 400) - 200;
-            const randomY = Math.floor(Math.random() * 400) - 200;
+        // Fungsi tombol pindah tempat
+        function moveButton() {
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
 
-            btnMasih.style.transform = `translate(${randomX}px, ${randomY}px)`;
+            const maxX = screenWidth - btnMasih.offsetWidth - 40;
+            const maxY = screenHeight - btnMasih.offsetHeight - 120;
+
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+
+            btnMasih.style.transform =
+                `translate(${randomX}px, ${randomY}px) rotate(${Math.random()*30 -15}deg)`;
+        }
+
+        // Tombol teleport otomatis
+        setInterval(() => {
+            moveButton();
+        }, speed);
+
+        // Biar makin ngeselin, makin disentuh makin cepat
+        function makeFaster() {
+            if (speed > 150) {
+                speed -= 70;
+            }
+        }
+
+        // desktop (hover)
+        btnMasih.addEventListener("mouseover", () => {
+            moveButton();
+            makeFaster();
         });
 
-        // sparkles aesthetic
-        for (let i = 0; i < 30; i++) {
-            let s = document.createElement("div");
-            s.classList.add("sparkle");
-            s.style.left = Math.random() * 100 + "%";
-            s.style.top = Math.random() * 100 + "%";
-            s.style.animationDelay = (Math.random() * 3) + "s";
-            document.body.appendChild(s);
-        }
+        // mobile (sentuh)
+        btnMasih.addEventListener("touchstart", () => {
+            moveButton();
+            makeFaster();
+        });
     </script>
 
 </body>
